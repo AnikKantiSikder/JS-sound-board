@@ -1,9 +1,28 @@
 
-const labels = document.querySelectorAll('.form-control label');
+const sounds = ['applause', 'boo', 'gasp', 'tada', 'victory', 'wrong'];
 
-labels.forEach(function (label) {
-    label.innerHTML = label.innerText
-        .split('')
-        .map((letter, idx) => `<span style="transition-delay:${idx*50}ms">${letter}</span>`)
-        .join('')   
-});
+const buttons =  document.getElementById('buttons');
+
+sounds.forEach(function (sound) {
+    const btn = document.createElement('button');
+    btn.classList.add('btn');
+
+    btn.innerText = sound;
+
+    btn.addEventListener('click', function () {
+        stopSongs();
+
+        document.getElementById(sound).play();
+    })
+
+    buttons.appendChild(btn);
+})
+
+function stopSongs() {
+    sounds.forEach(function (sound) {
+        const song = document.getElementById(sound);
+
+        song.pause();
+        song.currentTime = 0;
+    })
+}
